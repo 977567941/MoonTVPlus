@@ -54,21 +54,32 @@ function getD1Adapter(): any {
 
   // 生产环境：Cloudflare Workers/Pages
   if (isCloudflare) {
-    try {
-      // 在 Cloudflare 环境中，通过 getCloudflareContext 获取 D1 绑定
-      const { getCloudflareContext } = require('@opennextjs/cloudflare');
-      const { env } = getCloudflareContext();
+    // 创建一个懒加载的适配器，延迟到实际使用时才获取 D1 绑定
+    let cachedAdapter: any = null;
 
-      if (!env.DB) {
-        throw new Error('D1 database binding (DB) not found in Cloudflare environment');
+    return new Proxy({}, {
+      get(target, prop) {
+        // 懒加载：第一次访问时才获取真实的 D1 适配器
+        if (!cachedAdapter) {
+          try {
+            const { getCloudflareContext } = require('@opennextjs/cloudflare');
+            const { env } = getCloudflareContext();
+
+            if (!env.DB) {
+              throw new Error('D1 database binding (DB) not found in Cloudflare environment');
+            }
+
+            console.log('Using Cloudflare D1 database');
+            cachedAdapter = new CloudflareD1Adapter(env.DB);
+          } catch (error) {
+            console.error('Failed to initialize Cloudflare D1:', error);
+            throw error;
+          }
+        }
+
+        return cachedAdapter[prop];
       }
-
-      console.log('Using Cloudflare D1 database');
-      return new CloudflareD1Adapter(env.DB);
-    } catch (error) {
-      console.error('Failed to initialize Cloudflare D1:', error);
-      throw error;
-    }
+    });
   }
 
   // 开发环境：better-sqlite3
