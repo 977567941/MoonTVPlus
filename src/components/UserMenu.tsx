@@ -124,6 +124,7 @@ export const UserMenu: React.FC = () => {
   const [danmakuHeatmapDisabled, setDanmakuHeatmapDisabled] = useState(false);
   const [searchTraditionalToSimplified, setSearchTraditionalToSimplified] = useState(false);
   const [exactSearch, setExactSearch] = useState(true);
+  const [maxConcurrentDownloads, setMaxConcurrentDownloads] = useState(6);
 
   // 邮件通知设置
   const [userEmail, setUserEmail] = useState('');
@@ -479,6 +480,12 @@ export const UserMenu: React.FC = () => {
       if (savedExactSearch !== null) {
         setExactSearch(savedExactSearch === 'true');
       }
+
+      // 加载最大同时下载限制设置
+      const savedMaxConcurrentDownloads = localStorage.getItem('maxConcurrentDownloads');
+      if (savedMaxConcurrentDownloads !== null) {
+        setMaxConcurrentDownloads(Number(savedMaxConcurrentDownloads));
+      }
     }
   }, []);
 
@@ -817,6 +824,13 @@ export const UserMenu: React.FC = () => {
     setSpeedTestTimeout(value);
     if (typeof window !== 'undefined') {
       localStorage.setItem('speedTestTimeout', String(value));
+    }
+  };
+
+  const handleMaxConcurrentDownloadsChange = (value: number) => {
+    setMaxConcurrentDownloads(value);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('maxConcurrentDownloads', String(value));
     }
   };
 
@@ -1936,6 +1950,69 @@ export const UserMenu: React.FC = () => {
                         <div className='absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform peer-checked:translate-x-5'></div>
                       </div>
                     </label>
+                  </div>
+
+                  {/* 分割线 */}
+                  <div className='border-t border-gray-200 dark:border-gray-700'></div>
+
+                  {/* 最大同时下载限制 */}
+                  <div className='space-y-2'>
+                    <div>
+                      <h4 className='text-sm font-medium text-gray-700 dark:text-gray-300'>
+                        最大同时下载限制
+                      </h4>
+                      <p className='text-xs text-gray-500 dark:text-gray-400 mt-1'>
+                        控制播放页面下载时的同时下载数量
+                      </p>
+                    </div>
+                    <div className='flex items-center justify-between'>
+                      <span className='text-xs text-gray-600 dark:text-gray-400'>
+                        同时下载数量
+                      </span>
+                      <span className='text-xs font-medium text-gray-700 dark:text-gray-300'>
+                        {maxConcurrentDownloads}个
+                      </span>
+                    </div>
+                    <div className='flex items-center gap-2'>
+                      <input
+                        type='range'
+                        min='1'
+                        max='10'
+                        step='1'
+                        value={maxConcurrentDownloads}
+                        onChange={(e) => handleMaxConcurrentDownloadsChange(Number(e.target.value))}
+                        className='flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700'
+                        style={{
+                          background: `linear-gradient(to right, #10b981 0%, #10b981 ${((maxConcurrentDownloads - 1) / (10 - 1)) * 100}%, #e5e7eb ${((maxConcurrentDownloads - 1) / (10 - 1)) * 100}%, #e5e7eb 100%)`
+                        }}
+                      />
+                    </div>
+                    <div className='flex justify-between text-xs text-gray-500 dark:text-gray-400'>
+                      <button
+                        onClick={() => handleMaxConcurrentDownloadsChange(1)}
+                        className={`px-2 py-0.5 rounded ${maxConcurrentDownloads === 1 ? 'bg-green-500 text-white' : 'hover:bg-gray-200 dark:hover:bg-gray-700'}`}
+                      >
+                        1个
+                      </button>
+                      <button
+                        onClick={() => handleMaxConcurrentDownloadsChange(3)}
+                        className={`px-2 py-0.5 rounded ${maxConcurrentDownloads === 3 ? 'bg-green-500 text-white' : 'hover:bg-gray-200 dark:hover:bg-gray-700'}`}
+                      >
+                        3个
+                      </button>
+                      <button
+                        onClick={() => handleMaxConcurrentDownloadsChange(6)}
+                        className={`px-2 py-0.5 rounded ${maxConcurrentDownloads === 6 ? 'bg-green-500 text-white' : 'hover:bg-gray-200 dark:hover:bg-gray-700'}`}
+                      >
+                        6个
+                      </button>
+                      <button
+                        onClick={() => handleMaxConcurrentDownloadsChange(10)}
+                        className={`px-2 py-0.5 rounded ${maxConcurrentDownloads === 10 ? 'bg-green-500 text-white' : 'hover:bg-gray-200 dark:hover:bg-gray-700'}`}
+                      >
+                        10个
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}
