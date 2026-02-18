@@ -25,6 +25,7 @@ import {
   AlertCircle,
   AlertTriangle,
   Bot,
+  Cat,
   Check,
   CheckCircle,
   ChevronDown,
@@ -50,6 +51,7 @@ import { createPortal } from 'react-dom';
 import { AdminConfig, AdminConfigResult } from '@/lib/admin.types';
 import { getAuthInfoFromBrowserCookie } from '@/lib/auth';
 
+import AnimeSubscriptionComponent from '@/components/AnimeSubscriptionComponent';
 import CorrectDialog from '@/components/CorrectDialog';
 import DataMigration from '@/components/DataMigration';
 import PageLayout from '@/components/PageLayout';
@@ -11597,6 +11599,7 @@ function AdminPageClient() {
     openListConfig: false,
     embyConfig: false,
     xiaoyaConfig: false,
+    animeSubscription: false,
     aiConfig: false,
     liveSource: false,
     webLive: false,
@@ -12048,6 +12051,18 @@ function AdminPageClient() {
                   onToggle={() => toggleTab('movieRequests')}
                 >
                   <MovieRequestsComponent config={config} refreshConfig={fetchConfig} />
+                </CollapsibleTab>
+
+                {/* 追番订阅子标签 */}
+                <CollapsibleTab
+                  title='追番订阅'
+                  icon={
+                    <Cat size={20} className='text-gray-600 dark:text-gray-400' />
+                  }
+                  isExpanded={expandedTabs.animeSubscription}
+                  onToggle={() => toggleTab('animeSubscription')}
+                >
+                  <AnimeSubscriptionComponent config={config} refreshConfig={fetchConfig} />
                 </CollapsibleTab>
               </div>
             </CollapsibleTab>

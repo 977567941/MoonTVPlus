@@ -2,6 +2,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 
+import { checkAnimeSubscriptions } from '@/lib/anime-subscription';
 import { getConfig, refineConfig } from '@/lib/config';
 import { db, getStorage } from '@/lib/db';
 import { EmailService } from '@/lib/email.service';
@@ -57,6 +58,7 @@ async function cronJob() {
   await refreshAllLiveChannels();
   await refreshOpenList();
   await refreshRecordAndFavorites();
+  await checkAnimeSubscriptions();
 }
 
 async function refreshAllLiveChannels() {

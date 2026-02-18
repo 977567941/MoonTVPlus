@@ -249,6 +249,21 @@ export interface AdminConfig {
     OpenListCachePath?: string; // OpenList缓存目录路径
     OpenListCacheProxyEnabled?: boolean; // 启用缓存代理返回（默认开启）
   };
+  AnimeSubscriptionConfig?: {
+    Enabled: boolean; // 是否启用追番功能
+    Subscriptions: Array<{
+      id: string;
+      title: string;
+      filterText: string;
+      source: 'acgrip' | 'mikan' | 'dmhy';
+      enabled: boolean;
+      lastCheckTime: number;
+      lastEpisode: number;
+      createdAt: number;
+      updatedAt: number;
+      createdBy: string;
+    }>;
+  };
 }
 
 export interface AdminConfigResult {
