@@ -1,5 +1,5 @@
 {
-  "cache_time": 9200,
+  "cache_time": 7200,
   "api_site": {
     "api_1": { "name": "无水印资源", "api": "https://api.wsyzy.net/api.php/provide/vod/", "detail": "https://api.wsyzy.net" },
     "api_2": { "name": "🎬速播资源", "api": "https://subocaiji.com/api.php/provide/vod", "detail": "https://subocaiji.com" },
