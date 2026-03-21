@@ -9,6 +9,11 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+      # 第一步：必须先拉取你仓库的代码环境，否则后面会报错
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 第二步：去原作者那里拉代码并合并到你的 main 分支
       - name: Sync with Upstream
         uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
         with:
