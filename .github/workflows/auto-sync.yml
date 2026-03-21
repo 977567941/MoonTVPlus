@@ -1,0 +1,19 @@
+name: Auto Sync Fork
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 每天凌晨 0 点自动检查更新
+  workflow_dispatch: # 允许你手动点击按钮立刻同步
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync with Upstream
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
+        with:
+          target_sync_branch: main
+          target_repo_token: ${{ secrets.GITHUB_TOKEN }}
+          upstream_sync_repo: mtvpls/MoonTVPlus
+          upstream_sync_branch: main
+          test_mode: false
