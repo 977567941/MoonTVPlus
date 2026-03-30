@@ -38,7 +38,7 @@
     "api_35": { "name": "TV-百度云资源", "api": "https://api.apibdzy.com/api.php/provide/vod", "detail": "https://api.apibdzy.com" },
     "api_36": { "name": "TV-天涯资源", "api": "https://tyyszyapi.com/api.php/provide/vod", "detail": "https://tyyszyapi.com" },
     "api_37": { "name": "TV-光速资源", "api": "https://api.guangsuapi.com/api.php/provide/vod", "detail": "https://api.guangsuapi.com" },
-    "api_38": { "name": "🔞TV-优质资源", "api": "https://api.yzzy-api.com/inc/apijson.php", "detail": "https://api.yzzy-api.com" },
+    "api_38": { "name": "TV-优质资源", "api": "https://api.yzzy-api.com/inc/apijson.php", "detail": "https://api.yzzy-api.com" },
     "api_39": { "name": "🔞TV-香蕉资源", "api": "https://www.xiangjiaozyw.com/api.php/provide/vod/", "detail": "https://www.xiangjiaozyw.com" },
     "api_40": { "name": "🔞TV-大地资源", "api": "https://dadiapi.com/api.php/provide/vod/", "detail": "https://dadiapi.com" },
     "api_41": { "name": "🔞AV-黑料资源", "api": "https://www.heiliaozyapi.com/api.php/provide/vod/", "detail": "https://www.heiliaozyapi.com" },
